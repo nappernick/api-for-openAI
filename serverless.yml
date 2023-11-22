@@ -1,0 +1,36 @@
+org: raesapigateway
+app: api-gateway
+service: api-gateway
+frameworkVersion: '3'
+
+plugins:
+ - 'serverless-plugin-typescript'
+ - serverless-plugin-optimize
+ - serverless-offline
+
+provider:
+ name: aws
+ runtime: nodejs18.x
+
+package:
+  individually: true
+
+functions:
+  getLeads:
+    handler: ./src/lambda.handler
+    events:
+      - http:
+          path: leads/{userId}
+          method: get
+  getInvoices:
+    handler: ./src/lambda.handler
+    events:
+      - http:
+          path: invoices/{userId}
+          method: get
+  # postPhoto:
+  #   handler: path/to/your.handler
+  #   events:
+  #     - http:
+  #         path: photos
+  #         method: post
